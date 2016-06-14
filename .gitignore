@@ -94,4 +94,6 @@ fabric.properties
 bower_components/
 node_modules/
 .tmp
+.idea
+workspace.xml
 
