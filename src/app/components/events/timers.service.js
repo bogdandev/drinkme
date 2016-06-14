@@ -1,7 +1,7 @@
 angular.module('drinkme').factory('TimersService', TimersService);
 
 /** @ngInject **/
-function TimersService(moment, toastr, $timeout) {
+function TimersService(moment, notificationsFactory, $timeout) {
     var timer;
     var triggers;
     var index = 0;
@@ -27,11 +27,8 @@ function TimersService(moment, toastr, $timeout) {
         var trigger = triggers[index];
 
         var timestamp = trigger.showAt.diff(moment());
-        console.log(timestamp);
         timer = $timeout(function () {
-            //NotificationsFactory.create(trigger.name);
-            console.log(trigger.name);
-            toastr.success(trigger.name);
+            notificationsFactory.create(trigger.name, 'move your body');
             index++;
             start(triggers);
         }, timestamp);

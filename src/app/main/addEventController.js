@@ -6,7 +6,7 @@
         .controller('addEventController', addEventController);
 
     /** @ngInject */
-    function addEventController() {
+    function addEventController(EventsService, TimersService) {
         var vm = this;
         vm.newEvent = {
             name:'',
@@ -26,13 +26,15 @@
                 endDate: moment(event.endDate).format('DD/MM/YYYY'),
                 startTime:moment(event.startTime).format('HH:mm'),
                 endTime:moment(event.endTime).format('HH:mm'),
-                interval:10
+                interval:event.interval
             };
         }
         function addEvent(){
             var requestObject = parseEvent(vm.newEvent);
-            console.log(requestObject);
+            EventsService.addEvent(requestObject);
+            EventsService.loadData(moment());
+            TimersService.start(EventsService.data.triggers);
         }
     }
-    
+
 })();

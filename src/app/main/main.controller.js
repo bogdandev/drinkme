@@ -5,12 +5,6 @@
         .module('drinkme')
         .controller('MainController', MainController);
 
-<<<<<<< HEAD
-  /** @ngInject */
-  function MainController() {
-   
-  }
-=======
     /** @ngInject */
     function MainController() {
         var vm = this;
@@ -22,5 +16,4 @@
             
         }
     }
->>>>>>> timers
 })();
