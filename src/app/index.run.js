@@ -1,14 +1,15 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('drinkme')
-    .run(runBlock);
+    angular
+        .module('drinkme')
+        .run(runBlock);
 
-  /** @ngInject */
-  function runBlock($log) {
-
-    $log.debug('runBlock end');
-  }
+    /** @ngInject */
+    function runBlock($log, EventsService, TimersService) {
+        EventsService.loadData(moment());
+        TimersService.start(EventsService.data.triggers);
+        $log.debug('runBlock end');
+    }
 
 })();

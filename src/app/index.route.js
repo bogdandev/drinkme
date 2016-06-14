@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 (function() {
+=======
+(function () {
+>>>>>>> timers
     'use strict';
 
     angular
@@ -12,6 +16,7 @@
                 url: '/',
                 templateUrl: 'app/main/main.html',
                 controller: 'MainController',
+<<<<<<< HEAD
                 controllerAs:"vm"
             })
             .state('add', {
@@ -27,6 +32,10 @@
                 controllerAs:"vm"
             })
         ;
+=======
+                controllerAs: 'main'
+            });
+>>>>>>> timers
 
         $urlRouterProvider.otherwise('/');
     }
