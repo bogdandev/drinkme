@@ -1,0 +1,8 @@
+<ul class="list-group" ng-if="!vm.isEditingMode">
+    <li class="list-group-item text-left" ng-repeat="event in vm.events">
+        {{event.name}} <a href="" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+        <a href="" class="pull-right" style="margin-right: 10px" ng-click="vm.editEvent(event);"><span class="glyphicon glyphicon-edit"></span></a>
+    </li>
+</ul>
+
+<edit-event event="vm.selectedEvent" ng-if="vm.isEditingMode"></edit-event>
