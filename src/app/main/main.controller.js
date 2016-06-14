@@ -6,18 +6,17 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, toastr) {
+  function MainController(EventsService, TimersService) {
     var vm = this;
 
-    vm.awesomeThings = [];
-    vm.classAnimation = '';
-    vm.creationDate = 1465889176572;
-    vm.showToastr = showToastr;
+    
 
     activate();
 
     function activate() {
+      EventsService.loadData(moment().format('DD/MM/YYYY'));
 
+      TimersService.start(EventsService.data.triggers);
     }
   }
 })();

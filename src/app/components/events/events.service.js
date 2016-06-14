@@ -2,13 +2,20 @@
 angular.module('drinkme').factory('EventsService', EventsService);
 
 /** @ngInject **/
-function EventsService(moment) {
-    var data = {triggers:[]};
+function EventsService(moment, _) {
+    var data = {
+        triggers : [], 
+        events : []
+    };
     var openSessionMoment;
 
     return {
-        loadData: loadData,
-        data: data
+        loadData    :	loadData,
+        addEvent    :   addEvent,
+        removeEvent :   removeEvent,
+        editEvent   :   editEvent,
+        getEvents   :   getEvents,
+        data        :   data
     };
 
     function loadData(startTime) {
@@ -22,18 +29,44 @@ function EventsService(moment) {
     }
 
     function getEvents() {
+        data.events = JSON.parse(localStorage.getItem("events")) || [];
 
-        return [
-            {
-                id: 1,
-                name: 'Paracetamol',
-                startDate: openSessionMoment.format('X'),
-                endDate: openSessionMoment.clone().add(2, 'days').format('X'),
-                startTime: '9:00',
-                endTime: '18:00',
-                interval: 60
+        return data.events;
+    }
+
+    function setEvents() {
+        localStorage.setItem('events', JSON.stringify(data.events));
+    }
+
+    function addEvent(event) {
+        if (event) { 
+            data.events.push(event);
+            setEvents();
+        }    
+    }
+    
+    function removeEvent(event) {
+        if (event) {
+            var index = _.findIndex(data.events, {id : event.id});
+            
+            if (index > -1){
+                data.events.splice(index, 1);
+
+                setEvents();
             }
-        ];
+        }
+    }
+
+    function editEvent(eventId, event) {
+        if (eventId && event) {
+            var index = _.findIndex(data.events, {id : eventId});
+
+            if (index > -1) {
+                data.events[index] = event;
+
+                setEvents();
+            }
+        }
     }
 
     function createTriggersForEvent(event) {
@@ -53,15 +86,19 @@ function EventsService(moment) {
 
         while(startHour.diff(event.endTimeMoment) <= 0) {
             if (startHour.diff(openSessionMoment) >= 0) {
-                createTrigger(startHour.format('X'));
+                createTrigger(startHour.clone());
             }
             startHour.add(event.interval, 'minutes');
         }
 
-        function createTrigger(timestamp) {
+        data.triggers = _.orderBy(data.triggers, function (trigger) {
+            return trigger.showAtMoment.format('x');
+        });
+
+        function createTrigger(showAtMoment) {
             data.triggers.push({
                 event: event.id,
-                showAt: timestamp,
+                showAt: showAtMoment,
                 name: event.name
             });
         }
