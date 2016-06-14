@@ -1,7 +1,7 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('drinkme', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ui.router', 'ui.bootstrap', 'toastr']);
+    angular
+        .module('drinkme', ['ui.router', 'ui.bootstrap', 'toastr']);
 
 })();

@@ -1,12 +1,12 @@
-(function() {
+(function () {
     'use strict';
 
-    describe('events service', function() {
+    describe('events service', function () {
         var EventsService;
 
 
         beforeEach(module('drinkme'));
-        beforeEach(inject(function(_EventsService_) {
+        beforeEach(inject(function (_EventsService_) {
             EventsService = _EventsService_;
         }));
         beforeEach(function () {
@@ -18,10 +18,10 @@
         //     expect(EventsService.data.triggers.length).toEqual(10);
         // });
 
-        it('should add an event', function() {
+        it('should add an event', function () {
             EventsService.addEvent({
-                id      : 1,
-                name    : 'test' 
+                id: 1,
+                name: 'test'
             });
             var events = JSON.parse(localStorage.getItem('events'));
 
@@ -30,10 +30,10 @@
 
         it('should remove an event', function () {
             EventsService.addEvent({
-                id      : 1,
-                name    : 'test' 
+                id: 1,
+                name: 'test'
             });
-            EventsService.removeEvent({id : 1, name : 'test'});
+            EventsService.removeEvent({id: 1, name: 'test'});
 
             var events = JSON.parse(localStorage.getItem('events'));
 
@@ -42,24 +42,24 @@
 
         it('should edit an event', function () {
             EventsService.addEvent({
-                id      : 1,
-                name    : 'test' 
+                id: 1,
+                name: 'test'
             });
-            EventsService.editEvent(1, {id : 1, name : 'test2'});
+            EventsService.editEvent(1, {id: 1, name: 'test2'});
 
             var events = JSON.parse(localStorage.getItem('events'));
 
             expect(events[0].name).toEqual('test2');
         });
 
-        it('should return all events', function() {
+        it('should return all events', function () {
             EventsService.addEvent({
-                id      : 1,
-                name    : 'test' 
+                id: 1,
+                name: 'test'
             });
             EventsService.addEvent({
-                id      : 2,
-                name    : 'test' 
+                id: 2,
+                name: 'test'
             });
 
             var events = JSON.parse(localStorage.getItem('events'));

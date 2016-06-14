@@ -1,39 +1,43 @@
 angular.module('drinkme').factory('TimersService', TimersService);
 
 /** @ngInject **/
-function TimersService(moment, _, NotificationsFactory, $timeout) {
+function TimersService(moment, toastr, $timeout) {
     var timer;
     var triggers;
     var index = 0;
-    
+
     return {
-        start   :   start,
-        stop    :   stop
+        start: start,
+        stop: stop
     };
 
-    function start (triggers) {
+    function start(triggers) {
         if (triggers.length == 0) {
             return;
         }
 
         if (index == triggers.length) {
-            return; 
+            return;
         }
 
-        stop();
+        if (timer) {
+            stop();
+        }
 
         var trigger = triggers[index];
 
-        var timestamp = trigger.showAtMoment.diff(moment());
-
+        var timestamp = trigger.showAt.diff(moment());
+        console.log(timestamp);
         timer = $timeout(function () {
-            NotificationsFactory.create(trigger.name);
+            //NotificationsFactory.create(trigger.name);
+            console.log(trigger.name);
+            toastr.success(trigger.name);
             index++;
             start(triggers);
         }, timestamp);
     }
 
-    function stop () {
-        timer();
+    function stop() {
+        $timeout.cancel(timer);
     }
 }

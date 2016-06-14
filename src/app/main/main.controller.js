@@ -1,22 +1,19 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('drinkme')
-    .controller('MainController', MainController);
+    angular
+        .module('drinkme')
+        .controller('MainController', MainController);
 
-  /** @ngInject */
-  function MainController(EventsService, TimersService) {
-    var vm = this;
+    /** @ngInject */
+    function MainController() {
+        var vm = this;
 
-    
 
-    activate();
+        activate();
 
-    function activate() {
-      EventsService.loadData(moment().format('DD/MM/YYYY'));
-
-      TimersService.start(EventsService.data.triggers);
+        function activate() {
+            
+        }
     }
-  }
 })();

@@ -1,9 +1,9 @@
 /* global moment:false, _:false */
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('drinkme')
-    .constant('moment', moment)
-    .constant('_', _);
+    angular
+        .module('drinkme')
+        .constant('moment', moment)
+        .constant('_', _);
 })();
